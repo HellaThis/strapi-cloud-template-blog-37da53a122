@@ -90,6 +90,32 @@ export interface SharedSlider extends Schema.Component {
   };
 }
 
+export interface SharedTaxonomy extends Schema.Component {
+  collectionName: 'components_shared_taxonomies';
+  info: {
+    displayName: 'Taxonomy';
+    icon: 'book';
+    description: '';
+  };
+  attributes: {
+    genres: Attribute.Relation<
+      'shared.taxonomy',
+      'oneToMany',
+      'api::genre.genre'
+    >;
+    subgenres: Attribute.Relation<
+      'shared.taxonomy',
+      'oneToMany',
+      'api::subgenre.subgenre'
+    >;
+    themes: Attribute.Relation<
+      'shared.taxonomy',
+      'oneToMany',
+      'api::theme.theme'
+    >;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
@@ -99,6 +125,7 @@ declare module '@strapi/types' {
       'shared.rich-text': SharedRichText;
       'shared.seo': SharedSeo;
       'shared.slider': SharedSlider;
+      'shared.taxonomy': SharedTaxonomy;
     }
   }
 }

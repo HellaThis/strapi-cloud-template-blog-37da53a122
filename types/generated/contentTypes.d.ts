@@ -855,6 +855,7 @@ export interface ApiArticleArticle extends Schema.CollectionType {
     blocks: Attribute.DynamicZone<
       ['shared.media', 'shared.quote', 'shared.rich-text', 'shared.slider']
     >;
+    Taxonomy: Attribute.Component<'shared.taxonomy'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1114,6 +1115,38 @@ export interface ApiEventEvent extends Schema.CollectionType {
   };
 }
 
+export interface ApiGenreGenre extends Schema.CollectionType {
+  collectionName: 'genres';
+  info: {
+    singularName: 'genre';
+    pluralName: 'genres';
+    displayName: 'Genre';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    slug: Attribute.String;
+    uid: Attribute.UID<'api::genre.genre', 'slug'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::genre.genre',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::genre.genre',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiGlobalGlobal extends Schema.SingleType {
   collectionName: 'globals';
   info: {
@@ -1140,6 +1173,38 @@ export interface ApiGlobalGlobal extends Schema.SingleType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::global.global',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiIabtagidIabtagid extends Schema.CollectionType {
+  collectionName: 'iabtagids';
+  info: {
+    singularName: 'iabtagid';
+    pluralName: 'iabtagids';
+    displayName: 'Iabtagid';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    slug: Attribute.String;
+    uid: Attribute.UID<'api::iabtagid.iabtagid', 'slug'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::iabtagid.iabtagid',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::iabtagid.iabtagid',
       'oneToOne',
       'admin::user'
     > &
@@ -1202,6 +1267,7 @@ export interface ApiMovieMovie extends Schema.CollectionType {
       'oneToMany',
       'api::character.character'
     >;
+    Taxonomy: Attribute.Component<'shared.taxonomy'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1485,6 +1551,71 @@ export interface ApiReviewReview extends Schema.CollectionType {
   };
 }
 
+export interface ApiSubgenreSubgenre extends Schema.CollectionType {
+  collectionName: 'subgenres';
+  info: {
+    singularName: 'subgenre';
+    pluralName: 'subgenres';
+    displayName: 'Subgenre';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    slug: Attribute.String;
+    uid: Attribute.UID<'api::subgenre.subgenre', 'slug'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::subgenre.subgenre',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::subgenre.subgenre',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiThemeTheme extends Schema.CollectionType {
+  collectionName: 'themes';
+  info: {
+    singularName: 'theme';
+    pluralName: 'themes';
+    displayName: 'Theme';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    slug: Attribute.String;
+    uid: Attribute.UID<'api::theme.theme', 'slug'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::theme.theme',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::theme.theme',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiTvEpisodeTvEpisode extends Schema.CollectionType {
   collectionName: 'tv-episodes';
   info: {
@@ -1667,6 +1798,7 @@ export interface ApiVideogameVideogame extends Schema.CollectionType {
       'oneToMany',
       'api::character.character'
     >;
+    Taxonomy: Attribute.Component<'shared.taxonomy'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1747,7 +1879,9 @@ declare module '@strapi/types' {
       'api::category.category': ApiCategoryCategory;
       'api::character.character': ApiCharacterCharacter;
       'api::event.event': ApiEventEvent;
+      'api::genre.genre': ApiGenreGenre;
       'api::global.global': ApiGlobalGlobal;
+      'api::iabtagid.iabtagid': ApiIabtagidIabtagid;
       'api::movie.movie': ApiMovieMovie;
       'api::offer.offer': ApiOfferOffer;
       'api::organization.organization': ApiOrganizationOrganization;
@@ -1755,6 +1889,8 @@ declare module '@strapi/types' {
       'api::place.place': ApiPlacePlace;
       'api::product.product': ApiProductProduct;
       'api::review.review': ApiReviewReview;
+      'api::subgenre.subgenre': ApiSubgenreSubgenre;
+      'api::theme.theme': ApiThemeTheme;
       'api::tv-episode.tv-episode': ApiTvEpisodeTvEpisode;
       'api::tvshow.tvshow': ApiTvshowTvshow;
       'api::videogame.videogame': ApiVideogameVideogame;
