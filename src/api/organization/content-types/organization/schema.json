@@ -29,7 +29,7 @@
     "contactPoint": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::contact-point.contact-point"
+      "target": "api::person.person"
     },
     "email": {
       "type": "email"
