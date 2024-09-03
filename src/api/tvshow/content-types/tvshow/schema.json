@@ -2,16 +2,18 @@
   "kind": "collectionType",
   "collectionName": "tvshows",
   "info": {
-    "name": "TV Show",
+    "singularName": "tvshow",
+    "pluralName": "tvshows",
+    "displayName": "TV Show",
     "description": "A television series."
   },
   "options": {
     "draftAndPublish": true
   },
+  "pluginOptions": {},
   "attributes": {
-    "name": {
-      "type": "string",
-      "required": true
+    "title": {
+      "type": "string"
     },
     "description": {
       "type": "richtext"
@@ -54,7 +56,9 @@
     "image": {
       "type": "media",
       "multiple": true,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "contentRating": {
       "type": "string"

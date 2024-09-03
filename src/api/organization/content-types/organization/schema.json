@@ -2,12 +2,15 @@
   "kind": "collectionType",
   "collectionName": "organizations",
   "info": {
-    "name": "Organization",
+    "singularName": "organization",
+    "pluralName": "organizations",
+    "displayName": "Organization",
     "description": "An organization such as a company or NGO."
   },
   "options": {
     "draftAndPublish": true
   },
+  "pluginOptions": {},
   "attributes": {
     "name": {
       "type": "string",
@@ -19,7 +22,9 @@
     "logo": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "contactPoint": {
       "type": "relation",

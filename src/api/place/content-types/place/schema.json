@@ -2,12 +2,15 @@
   "kind": "collectionType",
   "collectionName": "places",
   "info": {
-    "name": "Place",
+    "singularName": "place",
+    "pluralName": "places",
+    "displayName": "Place",
     "description": "Entities that have a physical presence."
   },
   "options": {
     "draftAndPublish": true
   },
+  "pluginOptions": {},
   "attributes": {
     "name": {
       "type": "string",
@@ -32,7 +35,9 @@
     "logo": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "telephone": {
       "type": "string"

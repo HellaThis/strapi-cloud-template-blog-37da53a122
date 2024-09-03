@@ -2,12 +2,15 @@
   "kind": "collectionType",
   "collectionName": "people",
   "info": {
-    "name": "Person",
+    "singularName": "person",
+    "pluralName": "people",
+    "displayName": "Person",
     "description": "A person (alive, dead, undead, or fictional)."
   },
   "options": {
     "draftAndPublish": true
   },
+  "pluginOptions": {},
   "attributes": {
     "name": {
       "type": "string",
@@ -48,7 +51,9 @@
     "image": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "sameAs": {
       "type": "string"

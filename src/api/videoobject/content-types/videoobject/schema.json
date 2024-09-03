@@ -2,12 +2,15 @@
   "kind": "collectionType",
   "collectionName": "videoobjects",
   "info": {
-    "name": "Video Object",
+    "singularName": "videoobject",
+    "pluralName": "videoobjects",
+    "displayName": "Video Object",
     "description": "A video file."
   },
   "options": {
     "draftAndPublish": true
   },
+  "pluginOptions": {},
   "attributes": {
     "name": {
       "type": "string",

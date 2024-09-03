@@ -2,16 +2,18 @@
   "kind": "collectionType",
   "collectionName": "videogames",
   "info": {
-    "name": "Video Game",
+    "singularName": "videogame",
+    "pluralName": "videogames",
+    "displayName": "Video Game",
     "description": "A video game."
   },
   "options": {
     "draftAndPublish": true
   },
+  "pluginOptions": {},
   "attributes": {
-    "name": {
-      "type": "string",
-      "required": true
+    "title": {
+      "type": "string"
     },
     "description": {
       "type": "richtext"
@@ -49,7 +51,9 @@
     "image": {
       "type": "media",
       "multiple": true,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "sameAs": {
       "type": "string"

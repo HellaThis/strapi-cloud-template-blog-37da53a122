@@ -2,12 +2,15 @@
   "kind": "collectionType",
   "collectionName": "reviews",
   "info": {
-    "name": "Review",
+    "singularName": "review",
+    "pluralName": "reviews",
+    "displayName": "Review",
     "description": "A review of an item - for example, of a movie, book, or product."
   },
   "options": {
     "draftAndPublish": true
   },
+  "pluginOptions": {},
   "attributes": {
     "author": {
       "type": "relation",

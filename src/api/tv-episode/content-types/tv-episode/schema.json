@@ -2,12 +2,15 @@
   "kind": "collectionType",
   "collectionName": "tv-episodes",
   "info": {
-    "name": "TV Episode",
+    "singularName": "tv-episode",
+    "pluralName": "tv-episodes",
+    "displayName": "TV Episode",
     "description": "An episode of a TV show."
   },
   "options": {
     "draftAndPublish": true
   },
+  "pluginOptions": {},
   "attributes": {
     "name": {
       "type": "string",
@@ -38,7 +41,9 @@
     "image": {
       "type": "media",
       "multiple": true,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "trailer": {
       "type": "relation",
