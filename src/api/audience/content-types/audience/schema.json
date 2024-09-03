@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "audiences",
+  "info": {
+    "singularName": "audience",
+    "pluralName": "audiences",
+    "displayName": "Audience",
+    "description": "An intended audience, for example, a target group for a product, service, or content."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "audienceType": {
+      "type": "string"
+    },
+    "geographicArea": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::place.place"
+    }
+  }
+}
