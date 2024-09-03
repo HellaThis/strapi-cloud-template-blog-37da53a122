@@ -1,0 +1,61 @@
+{
+  "collectionName": "components_shared_person_details",
+  "info": {
+    "displayName": "PersonDetails",
+    "icon": "walk"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "alternateName": {
+      "type": "string"
+    },
+    "birthDate": {
+      "type": "date"
+    },
+    "deathDate": {
+      "type": "date"
+    },
+    "email": {
+      "type": "email"
+    },
+    "telephone": {
+      "type": "string"
+    },
+    "jobTitle": {
+      "type": "string"
+    },
+    "gender": {
+      "type": "string"
+    },
+    "nationality": {
+      "type": "string"
+    },
+    "address": {
+      "type": "json"
+    },
+    "affiliation": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::organization.organization"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "sameAs": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    }
+
+  }
+}

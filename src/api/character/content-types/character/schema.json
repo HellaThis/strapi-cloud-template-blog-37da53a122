@@ -1,0 +1,109 @@
+{
+  "kind": "collectionType",
+  "collectionName": "characters",
+  "info": {
+    "singularName": "character",
+    "pluralName": "characters",
+    "displayName": "Character",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "alias": {
+      "type": "string",
+      "required": false
+    },
+    "fictionalUniverse": {
+      "type": "string",
+      "required": false
+    },
+    "origin": {
+      "type": "string",
+      "required": false
+    },
+    "abilities": {
+      "type": "text",
+      "required": false
+    },
+    "affiliation": {
+      "type": "string",
+      "required": false
+    },
+    "alignment": {
+      "type": "enumeration",
+      "enum": [
+        "Hero",
+        "Villain",
+        "Anti-Hero",
+        "Neutral"
+      ],
+      "required": false
+    },
+    "firstAppearance": {
+      "type": "date",
+      "required": false
+    },
+    "species": {
+      "type": "string",
+      "required": false
+    },
+    "occupation": {
+      "type": "string",
+      "required": false
+    },
+    "superpowers": {
+      "type": "text",
+      "required": false
+    },
+    "weaknesses": {
+      "type": "text",
+      "required": false
+    },
+    "equipment": {
+      "type": "text",
+      "required": false
+    },
+    "description": {
+      "type": "richtext",
+      "required": false
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false
+    },
+    "playedBy": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::person.person",
+      "required": false
+    },
+    "PersonDetails": {
+      "displayName": "PersonDetails",
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.person-details"
+    },
+    "movies": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::movie.movie"
+    },
+    "tv_shows": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::tvshow.tvshow"
+    },
+    "video_games": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::videogame.videogame"
+    }
+  }
+}
