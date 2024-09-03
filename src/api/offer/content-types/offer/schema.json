@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "offers",
+  "info": {
+    "singularName": "offer",
+    "pluralName": "offers",
+    "displayName": "Offer",
+    "description": "An offer to sell an item \u2014 for example, an offer to sell a product, the DVD of a movie, or tickets to an event."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "price": {
+      "type": "float",
+      "required": true
+    },
+    "priceCurrency": {
+      "type": "string",
+      "required": true
+    },
+    "availability": {
+      "type": "string"
+    },
+    "validFrom": {
+      "type": "datetime"
+    },
+    "validThrough": {
+      "type": "datetime"
+    },
+    "itemOffered": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product.product"
+    },
+    "seller": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::organization.organization"
+    }
+  }
+}
