@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_shared_taxonomies",
+  "info": {
+    "displayName": "Taxonomy",
+    "icon": "book",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "genres": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::genre.genre"
+    },
+    "subgenres": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::subgenre.subgenre"
+    },
+    "themes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::theme.theme"
+    }
+  }
+}
