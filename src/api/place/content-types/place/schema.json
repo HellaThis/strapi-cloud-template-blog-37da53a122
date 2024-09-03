@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "places",
+  "info": {
+    "name": "Place",
+    "description": "Entities that have a physical presence."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "address": {
+      "type": "json"
+    },
+    "geo": {
+      "type": "json"
+    },
+    "containedInPlace": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::place.place"
+    },
+    "event": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::event.event"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "telephone": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}

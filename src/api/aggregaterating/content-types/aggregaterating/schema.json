@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "aggregateratings",
+  "info": {
+    "name": "Aggregate Rating",
+    "description": "The average rating based on multiple ratings or reviews."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "ratingValue": {
+      "type": "float",
+      "required": true
+    },
+    "reviewCount": {
+      "type": "integer"
+    },
+    "bestRating": {
+      "type": "float"
+    },
+    "worstRating": {
+      "type": "float"
+    }
+  }
+}

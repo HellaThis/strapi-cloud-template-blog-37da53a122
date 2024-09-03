@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reviews",
+  "info": {
+    "name": "Review",
+    "description": "A review of an item - for example, of a movie, book, or product."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "author": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::person.person"
+    },
+    "reviewBody": {
+      "type": "text"
+    },
+    "reviewRating": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::aggregaterating.aggregaterating"
+    },
+    "datePublished": {
+      "type": "date"
+    }
+  }
+}

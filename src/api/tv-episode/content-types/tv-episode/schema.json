@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tv-episodes",
+  "info": {
+    "name": "TV Episode",
+    "description": "An episode of a TV show."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "episodeNumber": {
+      "type": "integer"
+    },
+    "seasonNumber": {
+      "type": "integer"
+    },
+    "datePublished": {
+      "type": "date"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "director": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::person.person"
+    },
+    "actor": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::person.person"
+    },
+    "image": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": ["images"]
+    },
+    "trailer": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::videoobject.videoobject"
+    }
+  }
+}

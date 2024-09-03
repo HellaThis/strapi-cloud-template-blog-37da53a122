@@ -1,0 +1,81 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tvshows",
+  "info": {
+    "name": "TV Show",
+    "description": "A television series."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "director": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::person.person"
+    },
+    "actor": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::person.person"
+    },
+    "genre": {
+      "type": "string"
+    },
+    "numberOfSeasons": {
+      "type": "integer"
+    },
+    "numberOfEpisodes": {
+      "type": "integer"
+    },
+    "startDate": {
+      "type": "date"
+    },
+    "endDate": {
+      "type": "date"
+    },
+    "productionCompany": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::organization.organization"
+    },
+    "trailer": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::videoobject.videoobject"
+    },
+    "image": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": ["images"]
+    },
+    "contentRating": {
+      "type": "string"
+    },
+    "sameAs": {
+      "type": "string"
+    },
+    "aggregateRating": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::aggregaterating.aggregaterating"
+    },
+    "review": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review.review"
+    },
+    "episode": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::tv-episode.tv-episode"
+    }
+  }
+}

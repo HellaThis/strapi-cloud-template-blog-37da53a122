@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "organizations",
+  "info": {
+    "name": "Organization",
+    "description": "An organization such as a company or NGO."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "alternateName": {
+      "type": "string"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "contactPoint": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::contact-point.contact-point"
+    },
+    "email": {
+      "type": "email"
+    },
+    "telephone": {
+      "type": "string"
+    },
+    "address": {
+      "type": "json"
+    },
+    "sameAs": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "memberOf": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::organization.organization"
+    },
+    "employee": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::person.person"
+    }
+  }
+}
