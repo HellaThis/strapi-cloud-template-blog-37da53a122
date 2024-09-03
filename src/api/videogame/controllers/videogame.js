@@ -1,10 +1,10 @@
 'use strict';
 
 /**
- * article controller
+ * videogame controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::article.article');
+module.exports = createCoreController('api::videogame.videogame');
 

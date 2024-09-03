@@ -1,10 +1,10 @@
 'use strict';
 
 /**
- * article controller
+ * tv-episode controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::article.article');
+module.exports = createCoreController('api::tv-episode.tv-episode');
 

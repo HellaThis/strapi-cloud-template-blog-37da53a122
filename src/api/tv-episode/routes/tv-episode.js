@@ -1,10 +1,10 @@
 'use strict';
 
 /**
- * article router
+ * tv-episode router
  */
 
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
-module.exports = createCoreRouter('api::article.article');
+module.exports = createCoreRouter('api::tv-episode.tv-episode');
 
