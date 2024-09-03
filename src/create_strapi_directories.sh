@@ -17,16 +17,22 @@ create_file_with_content() {
 # Loop through each content type and create the necessary directories and files
 for type in "${CONTENT_TYPES[@]}"; do
   # Create directories
-  mkdir -p "${BASE_DIR}/${type}/content-types"
+  mkdir -p "${BASE_DIR}/${type}/content-types/${type}"
   mkdir -p "${BASE_DIR}/${type}/controllers"
   mkdir -p "${BASE_DIR}/${type}/routes"
   mkdir -p "${BASE_DIR}/${type}/services"
 
   echo "Created directories for: ${type}"
 
-  # Create schema.json
-  touch "${BASE_DIR}/${type}/content-types/schema.json"
-  echo "Created file: ${BASE_DIR}/${type}/content-types/schema.json"
+  # Determine the schema file name
+  schema_file="${BASE_DIR}/${type}/content-types/${type}/schema.json"
+  if [ -f "$schema_file" ]; then
+    schema_file="${BASE_DIR}/${type}/content-types/${type}/schema-alt.json"
+  fi
+
+  # Create the schema.json file
+  touch "$schema_file"
+  echo "Created file: $schema_file"
 
   # Create controller file
   controller_file="${BASE_DIR}/${type}/controllers/${type}.js"
