@@ -1,6 +1,6 @@
 {
   "kind": "collectionType",
-  "collectionName": "contact-points",
+  "collectionName": "contact-point",
   "info": {
     "singularName": "contact-point",
     "pluralName": "contact-points",
