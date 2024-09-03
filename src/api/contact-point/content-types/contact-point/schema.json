@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "contact-points",
+  "info": {
+    "singularName": "contact-point",
+    "pluralName": "contact-points",
+    "displayName": "Contact Point",
+    "description": "A contact point for an organization, such as a customer service contact."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "contactType": {
+      "type": "string"
+    },
+    "telephone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "areaServed": {
+      "type": "string"
+    },
+    "availableLanguage": {
+      "type": "string"
+    },
+    "contactOption": {
+      "type": "string"
+    },
+    "productSupported": {
+      "type": "string"
+    }
+  }
+}
