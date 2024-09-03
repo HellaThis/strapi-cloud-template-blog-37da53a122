@@ -51,6 +51,7 @@
     "image": {
       "type": "media",
       "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images"
       ]
@@ -67,6 +68,11 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::review.review"
+    },
+    "characters": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::character.character"
     }
   }
 }
