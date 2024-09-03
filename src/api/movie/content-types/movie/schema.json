@@ -75,6 +75,11 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::character.character"
+    },
+    "Taxonomy": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.taxonomy"
     }
   }
 }

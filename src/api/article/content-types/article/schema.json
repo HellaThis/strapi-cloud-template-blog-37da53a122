@@ -53,6 +53,11 @@
         "shared.rich-text",
         "shared.slider"
       ]
+    },
+    "Taxonomy": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.taxonomy"
     }
   }
 }
