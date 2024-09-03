@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "articles",
+  "info": {
+    "name": "Article",
+    "description": "A written work or composition, typically in prose and published as part of a periodical."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "headline": {
+      "type": "string",
+      "required": true
+    },
+    "author": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::person.person"
+    },
+    "datePublished": {
+      "type": "datetime"
+    },
+    "articleBody": {
+      "type": "richtext"
+    },
+    "articleSection": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": ["images"]
+    },
+    "publisher": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::organization.organization"
+    },
+    "keywords": {
+      "type": "string"
+    },
+    "mainEntityOfPage": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::webpage.webpage"
+    }
+  }
+}
