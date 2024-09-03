@@ -2,12 +2,15 @@
   "kind": "collectionType",
   "collectionName": "aggregateratings",
   "info": {
-    "name": "Aggregate Rating",
+    "singularName": "aggregaterating",
+    "pluralName": "aggregateratings",
+    "displayName": "Aggregate Rating",
     "description": "The average rating based on multiple ratings or reviews."
   },
   "options": {
     "draftAndPublish": true
   },
+  "pluginOptions": {},
   "attributes": {
     "ratingValue": {
       "type": "float",
