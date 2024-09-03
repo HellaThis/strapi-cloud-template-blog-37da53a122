@@ -11,6 +11,34 @@ export interface SharedMedia extends Schema.Component {
   };
 }
 
+export interface SharedPersonDetails extends Schema.Component {
+  collectionName: 'components_shared_person_details';
+  info: {
+    displayName: 'PersonDetails';
+    icon: 'walk';
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    alternateName: Attribute.String;
+    birthDate: Attribute.Date;
+    deathDate: Attribute.Date;
+    email: Attribute.Email;
+    telephone: Attribute.String;
+    jobTitle: Attribute.String;
+    gender: Attribute.String;
+    nationality: Attribute.String;
+    address: Attribute.JSON;
+    affiliation: Attribute.Relation<
+      'shared.person-details',
+      'manyToMany',
+      'api::organization.organization'
+    >;
+    image: Attribute.Media;
+    sameAs: Attribute.String;
+    url: Attribute.String;
+  };
+}
+
 export interface SharedQuote extends Schema.Component {
   collectionName: 'components_shared_quotes';
   info: {
@@ -66,6 +94,7 @@ declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'shared.media': SharedMedia;
+      'shared.person-details': SharedPersonDetails;
       'shared.quote': SharedQuote;
       'shared.rich-text': SharedRichText;
       'shared.seo': SharedSeo;

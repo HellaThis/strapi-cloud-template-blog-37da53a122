@@ -512,6 +512,12 @@ export interface PluginContentReleasesRelease extends Schema.CollectionType {
   attributes: {
     name: Attribute.String & Attribute.Required;
     releasedAt: Attribute.DateTime;
+    scheduledAt: Attribute.DateTime;
+    timezone: Attribute.String;
+    status: Attribute.Enumeration<
+      ['ready', 'blocked', 'failed', 'done', 'empty']
+    > &
+      Attribute.Required;
     actions: Attribute.Relation<
       'plugin::content-releases.release',
       'oneToMany',
@@ -566,6 +572,7 @@ export interface PluginContentReleasesReleaseAction
       'manyToOne',
       'plugin::content-releases.release'
     >;
+    isEntryValid: Attribute.Boolean;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -781,32 +788,34 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
-export interface ApiAboutAbout extends Schema.SingleType {
-  collectionName: 'abouts';
+export interface ApiAggregateratingAggregaterating
+  extends Schema.CollectionType {
+  collectionName: 'aggregateratings';
   info: {
-    singularName: 'about';
-    pluralName: 'abouts';
-    displayName: 'About';
-    description: 'Write about yourself and the content you create';
+    singularName: 'aggregaterating';
+    pluralName: 'aggregateratings';
+    displayName: 'Aggregate Rating';
+    description: 'The average rating based on multiple ratings or reviews.';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String;
-    blocks: Attribute.DynamicZone<
-      ['shared.media', 'shared.quote', 'shared.rich-text', 'shared.slider']
-    >;
+    ratingValue: Attribute.Float & Attribute.Required;
+    reviewCount: Attribute.Integer;
+    bestRating: Attribute.Float;
+    worstRating: Attribute.Float;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::about.about',
+      'api::aggregaterating.aggregaterating',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::about.about',
+      'api::aggregaterating.aggregaterating',
       'oneToOne',
       'admin::user'
     > &
@@ -857,6 +866,43 @@ export interface ApiArticleArticle extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::article.article',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiAudienceAudience extends Schema.CollectionType {
+  collectionName: 'audiences';
+  info: {
+    singularName: 'audience';
+    pluralName: 'audiences';
+    displayName: 'Audience';
+    description: 'An intended audience, for example, a target group for a product, service, or content.';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    audienceType: Attribute.String;
+    geographicArea: Attribute.Relation<
+      'api::audience.audience',
+      'manyToOne',
+      'api::place.place'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::audience.audience',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::audience.audience',
       'oneToOne',
       'admin::user'
     > &
@@ -938,6 +984,136 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
   };
 }
 
+export interface ApiCharacterCharacter extends Schema.CollectionType {
+  collectionName: 'characters';
+  info: {
+    singularName: 'character';
+    pluralName: 'characters';
+    displayName: 'Character';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    alias: Attribute.String;
+    fictionalUniverse: Attribute.String;
+    origin: Attribute.String;
+    abilities: Attribute.Text;
+    affiliation: Attribute.String;
+    alignment: Attribute.Enumeration<
+      ['Hero', 'Villain', 'Anti-Hero', 'Neutral']
+    >;
+    firstAppearance: Attribute.Date;
+    species: Attribute.String;
+    occupation: Attribute.String;
+    superpowers: Attribute.Text;
+    weaknesses: Attribute.Text;
+    equipment: Attribute.Text;
+    description: Attribute.RichText;
+    image: Attribute.Media;
+    playedBy: Attribute.Relation<
+      'api::character.character',
+      'oneToMany',
+      'api::person.person'
+    >;
+    PersonDetails: Attribute.Component<'shared.person-details'>;
+    movies: Attribute.Relation<
+      'api::character.character',
+      'oneToMany',
+      'api::movie.movie'
+    >;
+    tv_shows: Attribute.Relation<
+      'api::character.character',
+      'oneToMany',
+      'api::tvshow.tvshow'
+    >;
+    video_games: Attribute.Relation<
+      'api::character.character',
+      'oneToMany',
+      'api::videogame.videogame'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::character.character',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::character.character',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiEventEvent extends Schema.CollectionType {
+  collectionName: 'events';
+  info: {
+    singularName: 'event';
+    pluralName: 'events';
+    displayName: 'Event';
+    description: 'An event happening at a certain time and location.';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    startDate: Attribute.DateTime & Attribute.Required;
+    endDate: Attribute.DateTime;
+    location: Attribute.Relation<
+      'api::event.event',
+      'manyToOne',
+      'api::place.place'
+    >;
+    performer: Attribute.Relation<
+      'api::event.event',
+      'manyToMany',
+      'api::person.person'
+    >;
+    organizer: Attribute.Relation<
+      'api::event.event',
+      'manyToOne',
+      'api::organization.organization'
+    >;
+    eventStatus: Attribute.String;
+    eventAttendanceMode: Attribute.String;
+    description: Attribute.Text;
+    image: Attribute.Media;
+    offers: Attribute.Relation<
+      'api::event.event',
+      'oneToMany',
+      'api::offer.offer'
+    >;
+    audience: Attribute.Relation<
+      'api::event.event',
+      'manyToOne',
+      'api::audience.audience'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::event.event',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::event.event',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiGlobalGlobal extends Schema.SingleType {
   collectionName: 'globals';
   info: {
@@ -971,6 +1147,581 @@ export interface ApiGlobalGlobal extends Schema.SingleType {
   };
 }
 
+export interface ApiMovieMovie extends Schema.CollectionType {
+  collectionName: 'movies';
+  info: {
+    singularName: 'movie';
+    pluralName: 'movies';
+    displayName: 'Movie';
+    description: 'A motion picture.';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.RichText;
+    director: Attribute.Relation<
+      'api::movie.movie',
+      'manyToOne',
+      'api::person.person'
+    >;
+    actor: Attribute.Relation<
+      'api::movie.movie',
+      'manyToMany',
+      'api::person.person'
+    >;
+    genre: Attribute.String;
+    duration: Attribute.String;
+    datePublished: Attribute.Date;
+    productionCompany: Attribute.Relation<
+      'api::movie.movie',
+      'manyToOne',
+      'api::organization.organization'
+    >;
+    trailer: Attribute.Relation<
+      'api::movie.movie',
+      'oneToOne',
+      'api::videoobject.videoobject'
+    >;
+    image: Attribute.Media;
+    contentRating: Attribute.String;
+    sameAs: Attribute.String;
+    aggregateRating: Attribute.Relation<
+      'api::movie.movie',
+      'oneToOne',
+      'api::aggregaterating.aggregaterating'
+    >;
+    review: Attribute.Relation<
+      'api::movie.movie',
+      'oneToMany',
+      'api::review.review'
+    >;
+    characters: Attribute.Relation<
+      'api::movie.movie',
+      'oneToMany',
+      'api::character.character'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::movie.movie',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::movie.movie',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiOfferOffer extends Schema.CollectionType {
+  collectionName: 'offers';
+  info: {
+    singularName: 'offer';
+    pluralName: 'offers';
+    displayName: 'Offer';
+    description: 'An offer to sell an item \u2014 for example, an offer to sell a product, the DVD of a movie, or tickets to an event.';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    price: Attribute.Float & Attribute.Required;
+    priceCurrency: Attribute.String & Attribute.Required;
+    availability: Attribute.String;
+    validFrom: Attribute.DateTime;
+    validThrough: Attribute.DateTime;
+    itemOffered: Attribute.Relation<
+      'api::offer.offer',
+      'manyToOne',
+      'api::product.product'
+    >;
+    seller: Attribute.Relation<
+      'api::offer.offer',
+      'manyToOne',
+      'api::organization.organization'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::offer.offer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::offer.offer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiOrganizationOrganization extends Schema.CollectionType {
+  collectionName: 'organizations';
+  info: {
+    singularName: 'organization';
+    pluralName: 'organizations';
+    displayName: 'Organization';
+    description: 'An organization such as a company or NGO.';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    alternateName: Attribute.String;
+    logo: Attribute.Media;
+    contactPoint: Attribute.Relation<
+      'api::organization.organization',
+      'oneToMany',
+      'api::person.person'
+    >;
+    email: Attribute.Email;
+    telephone: Attribute.String;
+    address: Attribute.JSON;
+    sameAs: Attribute.String;
+    url: Attribute.String;
+    memberOf: Attribute.Relation<
+      'api::organization.organization',
+      'manyToMany',
+      'api::organization.organization'
+    >;
+    employee: Attribute.Relation<
+      'api::organization.organization',
+      'oneToMany',
+      'api::person.person'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::organization.organization',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::organization.organization',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPersonPerson extends Schema.CollectionType {
+  collectionName: 'people';
+  info: {
+    singularName: 'person';
+    pluralName: 'people';
+    displayName: 'Person';
+    description: 'A person (alive, dead, undead, or fictional).';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Details: Attribute.Component<'shared.person-details'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::person.person',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::person.person',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPlacePlace extends Schema.CollectionType {
+  collectionName: 'places';
+  info: {
+    singularName: 'place';
+    pluralName: 'places';
+    displayName: 'Place';
+    description: 'Entities that have a physical presence.';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    address: Attribute.JSON;
+    geo: Attribute.JSON;
+    containedInPlace: Attribute.Relation<
+      'api::place.place',
+      'manyToOne',
+      'api::place.place'
+    >;
+    event: Attribute.Relation<
+      'api::place.place',
+      'oneToMany',
+      'api::event.event'
+    >;
+    logo: Attribute.Media;
+    telephone: Attribute.String;
+    url: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::place.place',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::place.place',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProductProduct extends Schema.CollectionType {
+  collectionName: 'products';
+  info: {
+    singularName: 'product';
+    pluralName: 'products';
+    displayName: 'Product';
+    description: 'A product that is offered for sale.';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    description: Attribute.RichText;
+    sku: Attribute.String;
+    brand: Attribute.Relation<
+      'api::product.product',
+      'manyToOne',
+      'api::organization.organization'
+    >;
+    image: Attribute.Media;
+    offers: Attribute.Relation<
+      'api::product.product',
+      'oneToMany',
+      'api::offer.offer'
+    >;
+    category: Attribute.String;
+    price: Attribute.Float;
+    productID: Attribute.String;
+    releaseDate: Attribute.Date;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiReviewReview extends Schema.CollectionType {
+  collectionName: 'reviews';
+  info: {
+    singularName: 'review';
+    pluralName: 'reviews';
+    displayName: 'Review';
+    description: 'A review of an item - for example, of a movie, book, or product.';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    author: Attribute.Relation<
+      'api::review.review',
+      'manyToOne',
+      'api::person.person'
+    >;
+    reviewBody: Attribute.Text;
+    reviewRating: Attribute.Relation<
+      'api::review.review',
+      'oneToOne',
+      'api::aggregaterating.aggregaterating'
+    >;
+    datePublished: Attribute.Date;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::review.review',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::review.review',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTvEpisodeTvEpisode extends Schema.CollectionType {
+  collectionName: 'tv-episodes';
+  info: {
+    singularName: 'tv-episode';
+    pluralName: 'tv-episodes';
+    displayName: 'TV Episode';
+    description: 'An episode of a TV show.';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    episodeNumber: Attribute.Integer;
+    seasonNumber: Attribute.Integer;
+    datePublished: Attribute.Date;
+    description: Attribute.RichText;
+    director: Attribute.Relation<
+      'api::tv-episode.tv-episode',
+      'manyToOne',
+      'api::person.person'
+    >;
+    actor: Attribute.Relation<
+      'api::tv-episode.tv-episode',
+      'manyToMany',
+      'api::person.person'
+    >;
+    image: Attribute.Media;
+    trailer: Attribute.Relation<
+      'api::tv-episode.tv-episode',
+      'oneToOne',
+      'api::videoobject.videoobject'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::tv-episode.tv-episode',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::tv-episode.tv-episode',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTvshowTvshow extends Schema.CollectionType {
+  collectionName: 'tvshows';
+  info: {
+    singularName: 'tvshow';
+    pluralName: 'tvshows';
+    displayName: 'TV Show';
+    description: 'A television series.';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.RichText;
+    director: Attribute.Relation<
+      'api::tvshow.tvshow',
+      'manyToOne',
+      'api::person.person'
+    >;
+    actor: Attribute.Relation<
+      'api::tvshow.tvshow',
+      'manyToMany',
+      'api::person.person'
+    >;
+    genre: Attribute.String;
+    numberOfSeasons: Attribute.Integer;
+    numberOfEpisodes: Attribute.Integer;
+    startDate: Attribute.Date;
+    endDate: Attribute.Date;
+    productionCompany: Attribute.Relation<
+      'api::tvshow.tvshow',
+      'manyToOne',
+      'api::organization.organization'
+    >;
+    trailer: Attribute.Relation<
+      'api::tvshow.tvshow',
+      'oneToOne',
+      'api::videoobject.videoobject'
+    >;
+    image: Attribute.Media;
+    contentRating: Attribute.String;
+    sameAs: Attribute.String;
+    aggregateRating: Attribute.Relation<
+      'api::tvshow.tvshow',
+      'oneToOne',
+      'api::aggregaterating.aggregaterating'
+    >;
+    review: Attribute.Relation<
+      'api::tvshow.tvshow',
+      'oneToMany',
+      'api::review.review'
+    >;
+    episode: Attribute.Relation<
+      'api::tvshow.tvshow',
+      'oneToMany',
+      'api::tv-episode.tv-episode'
+    >;
+    characters: Attribute.Relation<
+      'api::tvshow.tvshow',
+      'oneToMany',
+      'api::character.character'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::tvshow.tvshow',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::tvshow.tvshow',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiVideogameVideogame extends Schema.CollectionType {
+  collectionName: 'videogames';
+  info: {
+    singularName: 'videogame';
+    pluralName: 'videogames';
+    displayName: 'Video Game';
+    description: 'A video game.';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.RichText;
+    genre: Attribute.String;
+    platform: Attribute.String;
+    gameMode: Attribute.String;
+    gameplayMode: Attribute.String;
+    releaseDate: Attribute.Date;
+    developer: Attribute.Relation<
+      'api::videogame.videogame',
+      'manyToOne',
+      'api::organization.organization'
+    >;
+    publisher: Attribute.Relation<
+      'api::videogame.videogame',
+      'manyToOne',
+      'api::organization.organization'
+    >;
+    trailer: Attribute.Relation<
+      'api::videogame.videogame',
+      'oneToOne',
+      'api::videoobject.videoobject'
+    >;
+    image: Attribute.Media;
+    sameAs: Attribute.String;
+    aggregateRating: Attribute.Relation<
+      'api::videogame.videogame',
+      'oneToOne',
+      'api::aggregaterating.aggregaterating'
+    >;
+    review: Attribute.Relation<
+      'api::videogame.videogame',
+      'oneToMany',
+      'api::review.review'
+    >;
+    characters: Attribute.Relation<
+      'api::videogame.videogame',
+      'oneToMany',
+      'api::character.character'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::videogame.videogame',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::videogame.videogame',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiVideoobjectVideoobject extends Schema.CollectionType {
+  collectionName: 'videoobjects';
+  info: {
+    singularName: 'videoobject';
+    pluralName: 'videoobjects';
+    displayName: 'Video Object';
+    description: 'A video file.';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    description: Attribute.RichText;
+    url: Attribute.String & Attribute.Required;
+    thumbnailUrl: Attribute.String;
+    uploadDate: Attribute.Date;
+    duration: Attribute.String;
+    embedUrl: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::videoobject.videoobject',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::videoobject.videoobject',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -989,11 +1740,25 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
-      'api::about.about': ApiAboutAbout;
+      'api::aggregaterating.aggregaterating': ApiAggregateratingAggregaterating;
       'api::article.article': ApiArticleArticle;
+      'api::audience.audience': ApiAudienceAudience;
       'api::author.author': ApiAuthorAuthor;
       'api::category.category': ApiCategoryCategory;
+      'api::character.character': ApiCharacterCharacter;
+      'api::event.event': ApiEventEvent;
       'api::global.global': ApiGlobalGlobal;
+      'api::movie.movie': ApiMovieMovie;
+      'api::offer.offer': ApiOfferOffer;
+      'api::organization.organization': ApiOrganizationOrganization;
+      'api::person.person': ApiPersonPerson;
+      'api::place.place': ApiPlacePlace;
+      'api::product.product': ApiProductProduct;
+      'api::review.review': ApiReviewReview;
+      'api::tv-episode.tv-episode': ApiTvEpisodeTvEpisode;
+      'api::tvshow.tvshow': ApiTvshowTvshow;
+      'api::videogame.videogame': ApiVideogameVideogame;
+      'api::videoobject.videoobject': ApiVideoobjectVideoobject;
     }
   }
 }
